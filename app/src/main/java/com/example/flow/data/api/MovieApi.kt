@@ -9,7 +9,7 @@ import retrofit2.http.Query
 
 interface MovieApi {
     @GET("/")
-    fun getMovieResponse(
+    fun getMovieResponses(
         @Header("X-Naver-Client-Id") id : String,
         @Header("X-Naver-Client-Secret") pw: String,
         //@Path("type") type: String,

@@ -7,7 +7,7 @@ import retrofit2.Response
 
 class MovieRepository {
 
-    suspend fun getSearchResponses(clientId: String, clientPw: String, s: String): Response<MovieResponse> {
-        return RetrofitInstance.movieApi.getMovieResponse(clientId, clientPw, s)
+    suspend fun getMovieResponses(clientId: String, clientPw: String, s: String): Response<MovieResponse> {
+        return RetrofitInstance.movieApi.getMovieResponses(clientId, clientPw, s)
     }
 }
