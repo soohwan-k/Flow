@@ -13,6 +13,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="5dp"
         android:inputType="text"
+        android:textColor="@color/gold"
         android:lines="1"
         android:backgroundTint="@color/gold"
         app:layout_constraintBottom_toTopOf="@id/searchRecyclerView"
