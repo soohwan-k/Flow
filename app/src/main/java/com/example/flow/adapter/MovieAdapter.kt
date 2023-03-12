@@ -1,5 +1,6 @@
 package com.example.flow.adapter
 
+import android.text.Html
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -7,10 +8,12 @@ import com.bumptech.glide.Glide
 import com.example.flow.data.model.Movie
 import com.example.flow.databinding.ItemMovieBinding
 
+
 class MovieAdapter
     : RecyclerView.Adapter<MovieAdapter.MovieViewHolder>() {
 
     private var movieList = emptyList<Movie>()
+    private lateinit var listener: OnItemClickListener
 
     class MovieViewHolder(val binding: ItemMovieBinding) : RecyclerView.ViewHolder(binding.root)
 
@@ -30,6 +33,9 @@ class MovieAdapter
                 .load(movieList[position].image)
                 .into(posterImageView)
         }
+        holder.itemView.setOnClickListener {
+            listener.onClick(it, position)
+        }
     }
 
     // 뷰 홀더의 개수 리턴
@@ -44,11 +50,20 @@ class MovieAdapter
         notifyDataSetChanged()
     }
 
-    private fun removeTag(s :  String): String {
-        var a = s.replace("<b>", "")
-        a = a.replace("</b>", "")
-        a = a.replace("&amp;", "&")
-        return a
+    fun setItemClickListener(listener: OnItemClickListener) {
+        this.listener = listener
+    }
+
+
+//    private fun removeTag(s :  String): String {
+//        var a = s.replace("<b>", "")
+//        a = a.replace("</b>", "")
+//        a = a.replace("&amp;", "&")
+//        return a
+//    }
+
+    fun removeTag(html: String?): String? {
+        return Html.fromHtml(html).toString()
     }
 
 }

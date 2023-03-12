@@ -12,9 +12,9 @@ class MainViewModel(private val movieRepository: MovieRepository) : ViewModel() 
 
     val movieResponse: MutableLiveData<Response<MovieResponse>> = MutableLiveData()
 
-    fun getMovieResponse(clientId: String, clientPw: String, s: String) {
+    fun getMovieResponse(clientId: String, clientPw: String, start: Int, s: String) {
         viewModelScope.launch {
-            val response = movieRepository.getMovieResponses(clientId, clientPw, s)
+            val response = movieRepository.getMovieResponses(clientId, clientPw, start, s)
             movieResponse.value = response
         }
     }
