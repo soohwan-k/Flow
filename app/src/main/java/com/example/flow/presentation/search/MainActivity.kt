@@ -54,12 +54,15 @@ class MainActivity : AppCompatActivity() {
         binding.searchRecyclerView.layoutManager =
             LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
 
+
         initMainViewModel()
         logButtonClick()
+        getLogIntent()
         searchButtonClick()
         paging()
         listClick()
     }
+
 
     private fun searchButtonClick(){
         binding.searchButton.setOnClickListener {
@@ -112,6 +115,15 @@ class MainActivity : AppCompatActivity() {
                 startActivity(intent)
             }
         })
+    }
+
+    private fun getLogIntent(){
+        if (intent.getStringExtra("searchWord") != null){
+            pagingList.clear()
+            searchWord = intent.getStringExtra("searchWord")!!
+            page =1
+            search(page, searchWord)
+        }
     }
 
     private fun paging() {

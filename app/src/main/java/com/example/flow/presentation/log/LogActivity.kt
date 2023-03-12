@@ -16,6 +16,7 @@ import com.example.flow.adapter.SearchLogAdapter
 import com.example.flow.data.log.model.SearchLog
 import com.example.flow.databinding.ActivityLogBinding
 import com.example.flow.databinding.ActivityMainBinding
+import com.example.flow.presentation.search.MainActivity
 
 class LogActivity : AppCompatActivity() {
     private val searchLogViewModel : SearchLogViewModel by viewModels{
@@ -24,7 +25,8 @@ class LogActivity : AppCompatActivity() {
                 SearchLogViewModel(application) as T
         }
     }
-    //private val searchLogs = arrayListOf<SearchLog>();
+
+    private lateinit var list: List<SearchLog>
     private val searchLogAdapter by lazy { SearchLogAdapter() }
     private lateinit var binding: ActivityLogBinding
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -37,6 +39,8 @@ class LogActivity : AppCompatActivity() {
             LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
 
         initView()
+        searchLogClick()
+        deleteButtonClick()
 
     }
 
@@ -47,21 +51,28 @@ class LogActivity : AppCompatActivity() {
             if (s>10) {
                 for (i in s-10 until s) {
                     newList.add(searchLogs[i])
+                    list = newList
                 }
-                searchLogAdapter.setData(newList)
             }else{
-                searchLogAdapter.setData(searchLogs)
+                list = searchLogs
             }
-
+            searchLogAdapter.setData(list)
         }
     }
-//
-//    private fun searchLogClick() {
-//        searchLogAdapter.setItemClickListener(object : OnItemClickListener {
-//            override fun onClick(v: View, position: Int) {
-//                var intent = Intent(Intent.ACTION_VIEW, Uri.parse(responseList[position].link))
-//                startActivity(intent)
-//            }
-//        })
-//    }
+
+    private fun searchLogClick() {
+        searchLogAdapter.setItemClickListener(object : OnItemClickListener {
+            override fun onClick(v: View, position: Int) {
+                val intent = Intent(applicationContext, MainActivity::class.java)
+                intent.putExtra("searchWord", list[position].searchLog)
+                startActivity(intent)
+            }
+        })
+    }
+
+    private fun deleteButtonClick(){
+        binding.deleteButton.setOnClickListener{
+            searchLogViewModel.deleteAll()
+        }
+    }
 }
