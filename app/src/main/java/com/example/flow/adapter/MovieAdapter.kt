@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.example.flow.data.model.Movie
+import com.example.flow.data.movie.model.Movie
 import com.example.flow.databinding.ItemMovieBinding
 
 
@@ -55,14 +55,7 @@ class MovieAdapter
     }
 
 
-//    private fun removeTag(s :  String): String {
-//        var a = s.replace("<b>", "")
-//        a = a.replace("</b>", "")
-//        a = a.replace("&amp;", "&")
-//        return a
-//    }
-
-    fun removeTag(html: String?): String? {
+    private fun removeTag(html: String?): String? {
         return Html.fromHtml(html).toString()
     }
 

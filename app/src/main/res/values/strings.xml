@@ -2,4 +2,6 @@
     <string name="app_name">Flow</string>
     <string name="search_button">검색</string>
     <string name="log_button">최근검색</string>
+    <string name="search_log">검색 기록</string>
+    <string name="delete_search_log">검색 기록 삭제</string>
 </resources>

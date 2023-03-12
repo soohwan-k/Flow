@@ -1,8 +1,8 @@
-package com.example.flow
+package com.example.flow.presentation.search
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.example.flow.data.repository.MovieRepository
+import com.example.flow.data.movie.repository.MovieRepository
 
 
 class MainViewModelFactory(private val movieRepository: MovieRepository) : ViewModelProvider.Factory {

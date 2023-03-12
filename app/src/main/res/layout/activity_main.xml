@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:background="@color/black"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".presentation.search.MainActivity">
 
     <EditText
         android:id="@+id/searchEditText"
@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="5dp"
         android:inputType="text"
-        android:textColor="@color/gold"
+        android:textColor="@color/text_color"
         android:lines="1"
         android:backgroundTint="@color/gold"
         app:layout_constraintBottom_toTopOf="@id/searchRecyclerView"
@@ -28,6 +28,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="5dp"
         android:textStyle="bold"
+        android:textColor="@color/text_color"
         android:background="@drawable/button_background"
         android:text="@string/search_button"
         app:layout_constraintBottom_toTopOf="@id/searchRecyclerView"
@@ -44,6 +45,7 @@
         android:background="@drawable/button_background"
         android:text="@string/log_button"
         android:textStyle="bold"
+        android:textColor="@color/text_color"
         app:layout_constraintBottom_toTopOf="@id/searchRecyclerView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_weight="1"

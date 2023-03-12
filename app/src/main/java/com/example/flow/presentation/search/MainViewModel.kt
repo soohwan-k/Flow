@@ -1,10 +1,10 @@
-package com.example.flow
+package com.example.flow.presentation.search
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.flow.data.model.MovieResponse
-import com.example.flow.data.repository.MovieRepository
+import com.example.flow.data.movie.model.MovieResponse
+import com.example.flow.data.movie.repository.MovieRepository
 import kotlinx.coroutines.launch
 import retrofit2.Response
 

@@ -1,4 +1,4 @@
-package com.example.flow
+package com.example.flow.presentation.search
 
 import android.content.ContentValues.TAG
 import android.content.Intent
@@ -8,6 +8,8 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import androidx.activity.viewModels
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -15,16 +17,27 @@ import com.example.flow.Constants.Companion.CLIENT_ID
 import com.example.flow.Constants.Companion.CLIENT_PW
 import com.example.flow.adapter.MovieAdapter
 import com.example.flow.adapter.OnItemClickListener
-import com.example.flow.data.model.Movie
-import com.example.flow.data.repository.MovieRepository
+import com.example.flow.data.movie.model.Movie
+import com.example.flow.data.log.model.SearchLog
+import com.example.flow.data.movie.repository.MovieRepository
+import com.example.flow.data.log.room.AppDatabase
 import com.example.flow.databinding.ActivityMainBinding
+import com.example.flow.presentation.log.LogActivity
+import com.example.flow.presentation.log.SearchLogViewModel
 
 
-class MainActivity : AppCompatActivity(){
 
+class MainActivity : AppCompatActivity() {
 
-    private lateinit var viewModel : MainViewModel
-    private lateinit var binding : ActivityMainBinding
+    private val searchLogViewModel : SearchLogViewModel by viewModels{
+        object : ViewModelProvider.Factory{
+            override fun <T : ViewModel> create(modelClass: Class<T>): T =
+                SearchLogViewModel(application) as T
+        }
+    }
+
+    private lateinit var viewModel: MainViewModel
+    private lateinit var binding: ActivityMainBinding
     private val movieAdapter by lazy { MovieAdapter() }
     private var responseList = arrayListOf<Movie>()
     private var pagingList = arrayListOf<Movie>()
@@ -33,28 +46,41 @@ class MainActivity : AppCompatActivity(){
     private var total = 1
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        // 뷰바인딩
+
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        // 어댑터 연결
         binding.searchRecyclerView.adapter = movieAdapter
-        binding.searchRecyclerView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL,false)
+        binding.searchRecyclerView.layoutManager =
+            LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
 
-        initViewModel()
-
-        binding.searchButton.setOnClickListener{
-            pagingList.clear()
-            page = 1
-            searchWord = binding.searchEditText.text.toString()
-            search(page, searchWord)
-        }
+        initMainViewModel()
+        logButtonClick()
+        searchButtonClick()
         paging()
         listClick()
     }
 
+    private fun searchButtonClick(){
+        binding.searchButton.setOnClickListener {
+            pagingList.clear()
+            page = 1
+            searchWord = binding.searchEditText.text.toString()
+            if (searchWord.isNotEmpty()){
+                searchLogViewModel.insert(SearchLog(searchWord))
+            }
 
-    private fun initViewModel() {
+            search(page, searchWord)
+        }
+    }
+
+    private fun logButtonClick(){
+        binding.logButton.setOnClickListener{
+            val intent = Intent(this, LogActivity::class.java)
+            startActivity(intent)
+        }
+    }
+    private fun initMainViewModel() {
         //repository 와 뷰모델 연결
         val repository = MovieRepository()
         val viewModelFactory = MainViewModelFactory(repository)
@@ -62,8 +88,8 @@ class MainActivity : AppCompatActivity(){
         viewModel = ViewModelProvider(this, viewModelFactory)[MainViewModel::class.java]
     }
 
-    private fun search(start: Int,keyword: String) {
-        viewModel.getMovieResponse(CLIENT_ID, CLIENT_PW, start,keyword)
+    private fun search(start: Int, keyword: String) {
+        viewModel.getMovieResponse(CLIENT_ID, CLIENT_PW, start, keyword)
         viewModel.movieResponse.observe(this) {
             responseList.clear()
             responseList = (it.body()?.items ?: arrayListOf<Movie>()) as ArrayList<Movie>
@@ -104,5 +130,6 @@ class MainActivity : AppCompatActivity(){
             }
         })
     }
+
 
 }

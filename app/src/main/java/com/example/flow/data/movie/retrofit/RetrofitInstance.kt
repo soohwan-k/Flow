@@ -1,8 +1,7 @@
-package com.example.flow.data.retrofit
+package com.example.flow.data.movie.retrofit
 
 import com.example.flow.Constants.Companion.BASE_URL
-import com.example.flow.data.api.MovieApi
-import com.google.gson.GsonBuilder
+import com.example.flow.data.movie.api.MovieApi
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 

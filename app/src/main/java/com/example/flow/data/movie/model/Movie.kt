@@ -1,8 +1,7 @@
-package com.example.flow.data.model
+package com.example.flow.data.movie.model
 
 
 import com.google.gson.annotations.SerializedName
-import java.util.*
 
 data class Movie(
     @SerializedName("title")

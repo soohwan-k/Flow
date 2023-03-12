@@ -1,7 +1,6 @@
-package com.example.flow.data.model
+package com.example.flow.data.movie.model
 
 import com.google.gson.annotations.SerializedName
-import java.util.*
 
 data class MovieResponse (
     @SerializedName("lastBuildDate") var lastBuildDate: String,
@@ -10,7 +9,3 @@ data class MovieResponse (
     @SerializedName("display") var display: Int,
     @SerializedName("items") var items: List<Movie>
 )
-
-//    val Response: String,
-//    val Search: List<Movie>,
-//    val totalResults: String
