@@ -3,13 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
+    android:layout_marginBottom="5dp"
     android:background="@drawable/tv_background">
 
     <TextView
         android:id="@+id/logTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="아니"
         android:layout_margin="10dp"
         android:textColor="@color/gold"
         android:textSize="20sp"
