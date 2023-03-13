@@ -109,7 +109,7 @@ class MainActivity : AppCompatActivity() {
     private fun listClick() {
         movieAdapter.setItemClickListener(object : OnItemClickListener {
             override fun onClick(v: View, position: Int) {
-                val intent = Intent(ACTION_VIEW, Uri.parse(responseList[position].link))
+                val intent = Intent(ACTION_VIEW, Uri.parse(pagingList[position].link))
                 startActivity(intent)
             }
         })
