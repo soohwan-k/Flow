@@ -1,7 +1,6 @@
 package com.example.flow.presentation.log
 
 import android.content.Intent
-import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -9,18 +8,15 @@ import androidx.activity.viewModels
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.flow.R
-import com.example.flow.adapter.MovieAdapter
 import com.example.flow.adapter.OnItemClickListener
 import com.example.flow.adapter.SearchLogAdapter
 import com.example.flow.data.log.model.SearchLog
 import com.example.flow.databinding.ActivityLogBinding
-import com.example.flow.databinding.ActivityMainBinding
 import com.example.flow.presentation.search.MainActivity
 
 class LogActivity : AppCompatActivity() {
-    private val searchLogViewModel : SearchLogViewModel by viewModels{
-        object : ViewModelProvider.Factory{
+    private val searchLogViewModel: SearchLogViewModel by viewModels {
+        object : ViewModelProvider.Factory {
             override fun <T : ViewModel> create(modelClass: Class<T>): T =
                 SearchLogViewModel(application) as T
         }
@@ -44,16 +40,16 @@ class LogActivity : AppCompatActivity() {
 
     }
 
-    private fun initView(){
+    private fun initView() {
         searchLogViewModel.getAll().observe(this) { searchLogs ->
             val newList = arrayListOf<SearchLog>()
-            var s = searchLogs.size
-            if (s>10) {
-                for (i in s-10 until s) {
+            val s = searchLogs.size
+            if (s > 10) {
+                for (i in s - 10 until s) {
                     newList.add(searchLogs[i])
                     list = newList
                 }
-            }else{
+            } else {
                 list = searchLogs
             }
             searchLogAdapter.setData(list)
@@ -70,8 +66,8 @@ class LogActivity : AppCompatActivity() {
         })
     }
 
-    private fun deleteButtonClick(){
-        binding.deleteButton.setOnClickListener{
+    private fun deleteButtonClick() {
+        binding.deleteButton.setOnClickListener {
             searchLogViewModel.deleteAll()
         }
     }

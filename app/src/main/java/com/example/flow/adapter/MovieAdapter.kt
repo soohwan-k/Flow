@@ -1,5 +1,6 @@
 package com.example.flow.adapter
 
+import android.annotation.SuppressLint
 import android.text.Html
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -17,13 +18,11 @@ class MovieAdapter
 
     class MovieViewHolder(val binding: ItemMovieBinding) : RecyclerView.ViewHolder(binding.root)
 
-    // 어떤 xml 으로 뷰 홀더를 생성할지 지정
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
-        val binding = ItemMovieBinding.inflate(LayoutInflater.from(parent.context),parent,false)
+        val binding = ItemMovieBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return MovieViewHolder(binding)
     }
 
-    // 뷰 홀더에 데이터 바인딩
     override fun onBindViewHolder(holder: MovieViewHolder, position: Int) {
         holder.binding.apply {
             titleTextView.text = removeTag(movieList[position].title)
@@ -38,15 +37,13 @@ class MovieAdapter
         }
     }
 
-    // 뷰 홀더의 개수 리턴
     override fun getItemCount(): Int {
         return movieList.size
     }
 
-    // 데이터 변경시 리스트 다시 할당
-    fun setData(newList : List<Movie>){
+    @SuppressLint("NotifyDataSetChanged")
+    fun setData(newList: List<Movie>) {
         movieList = newList
-        // 새로고침
         notifyDataSetChanged()
     }
 
@@ -54,8 +51,7 @@ class MovieAdapter
         this.listener = listener
     }
 
-
-    private fun removeTag(html: String?): String? {
+    private fun removeTag(html: String): String {
         return Html.fromHtml(html).toString()
     }
 

@@ -6,7 +6,7 @@ import androidx.lifecycle.ViewModel
 import com.example.flow.data.log.model.SearchLog
 import com.example.flow.data.log.repository.SearchLogRepository
 
-class SearchLogViewModel(application: Application) : ViewModel(){
+class SearchLogViewModel(application: Application) : ViewModel() {
 
     private val repository = SearchLogRepository(application)
 
@@ -14,15 +14,12 @@ class SearchLogViewModel(application: Application) : ViewModel(){
         return repository.getAll()
     }
 
-    fun insert(searchLog: SearchLog){
+    fun insert(searchLog: SearchLog) {
         repository.insert(searchLog)
     }
 
-    fun deleteAll(){
+    fun deleteAll() {
         repository.deleteAll()
     }
 
-    override fun onCleared() {
-        super.onCleared()
-    }
 }

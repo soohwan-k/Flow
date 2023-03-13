@@ -20,17 +20,15 @@ import com.example.flow.adapter.OnItemClickListener
 import com.example.flow.data.movie.model.Movie
 import com.example.flow.data.log.model.SearchLog
 import com.example.flow.data.movie.repository.MovieRepository
-import com.example.flow.data.log.room.AppDatabase
 import com.example.flow.databinding.ActivityMainBinding
 import com.example.flow.presentation.log.LogActivity
 import com.example.flow.presentation.log.SearchLogViewModel
 
 
-
 class MainActivity : AppCompatActivity() {
 
-    private val searchLogViewModel : SearchLogViewModel by viewModels{
-        object : ViewModelProvider.Factory{
+    private val searchLogViewModel: SearchLogViewModel by viewModels {
+        object : ViewModelProvider.Factory {
             override fun <T : ViewModel> create(modelClass: Class<T>): T =
                 SearchLogViewModel(application) as T
         }
@@ -64,12 +62,12 @@ class MainActivity : AppCompatActivity() {
     }
 
 
-    private fun searchButtonClick(){
+    private fun searchButtonClick() {
         binding.searchButton.setOnClickListener {
             pagingList.clear()
             page = 1
             searchWord = binding.searchEditText.text.toString()
-            if (searchWord.isNotEmpty()){
+            if (searchWord.isNotEmpty()) {
                 searchLogViewModel.insert(SearchLog(searchWord))
             }
 
@@ -77,14 +75,14 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun logButtonClick(){
-        binding.logButton.setOnClickListener{
+    private fun logButtonClick() {
+        binding.logButton.setOnClickListener {
             val intent = Intent(this, LogActivity::class.java)
             startActivity(intent)
         }
     }
+
     private fun initMainViewModel() {
-        //repository 와 뷰모델 연결
         val repository = MovieRepository()
         val viewModelFactory = MainViewModelFactory(repository)
 
@@ -111,17 +109,17 @@ class MainActivity : AppCompatActivity() {
     private fun listClick() {
         movieAdapter.setItemClickListener(object : OnItemClickListener {
             override fun onClick(v: View, position: Int) {
-                var intent = Intent(ACTION_VIEW, Uri.parse(responseList[position].link))
+                val intent = Intent(ACTION_VIEW, Uri.parse(responseList[position].link))
                 startActivity(intent)
             }
         })
     }
 
-    private fun getLogIntent(){
-        if (intent.getStringExtra("searchWord") != null){
+    private fun getLogIntent() {
+        if (intent.getStringExtra("searchWord") != null) {
             pagingList.clear()
             searchWord = intent.getStringExtra("searchWord")!!
-            page =1
+            page = 1
             search(page, searchWord)
         }
     }
@@ -142,6 +140,5 @@ class MainActivity : AppCompatActivity() {
             }
         })
     }
-
 
 }
